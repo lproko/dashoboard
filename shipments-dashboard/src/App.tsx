@@ -4,6 +4,7 @@ import { Flex } from "@chakra-ui/react";
 import { DrawerLayout } from "./shared/DrawerLayout";
 import { Companies } from "./pages/Companies";
 import { Shipments } from "./pages/Shipments";
+import { ShipmetDetails } from "./pages/ShipmetDetails";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Companies />} />
             <Route path="/companies" element={<Companies />} />
             <Route path="/shipments/:id" element={<Shipments />} />
+            <Route path="/details/:id" element={<ShipmetDetails />} />
           </Routes>
         </BrowserRouter>
       </Flex>
