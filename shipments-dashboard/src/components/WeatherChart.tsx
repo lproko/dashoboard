@@ -1,13 +1,6 @@
 import { Line } from "react-chartjs-2";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import Clock from "../assets/charticons/Clock.svg";
-import Icon1 from "../assets/charticons/117.png";
-import Icon2 from "../assets/charticons/113.png";
-import Icon3 from "../assets/charticons/200 386.png";
-import Icon4 from "../assets/charticons/389.png";
-import Icon5 from "../assets/charticons/390.png";
-import Icon6 from "../assets/charticons/392.png";
-import Icon7 from "../assets/charticons/icon.png";
+
 import {
   Chart,
   CategoryScale,
@@ -19,8 +12,8 @@ import {
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
 interface Props {
-  humidity: Humidity[];
-  temp: Temperature[];
+  humidity?: Humidity[];
+  temp?: Temperature[];
 }
 interface Humidity {
   t: number;
@@ -31,78 +24,92 @@ interface Temperature {
   v: number;
 }
 
-const weatherIcons = [Icon1, Icon2, Icon3, Icon4, Icon5, Icon6, Icon7];
+const WeatherChart = ({ humidity, temp }: Props) => {
+  const humidityNumbers = humidity
+    ? humidity?.filter((item) => item.v != null).map((hum) => hum.v)
+    : [];
+  const temperaturNumbers = temp ? temp?.map((tem) => tem.v) : [];
+  const data = {
+    labels: humidity
+      ? humidity.map((hum) => {
+          const date = new Date(hum.t);
 
-interface Label {
-  time: string;
-  wind: string;
-}
+          return date.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23",
+          });
+        })
+      : temp?.map((tem) => {
+          const date = new Date(tem.t);
 
-const data = {
-  labels: [
-    { time: "Now", wind: "11.7km/h" },
-    { time: "22:00", wind: "9.3km/h" },
-    { time: "00:00", wind: "12km/h" },
-    { time: "2:00", wind: "15km/h" },
-    { time: "4:00", wind: "15km/h" },
-    { time: "6:00", wind: "15km/h" },
-    { time: "8:00", wind: "15km/h" },
-  ],
-  datasets: [
-    {
-      label: "Temperature",
-      data: [26, 26, 22, 16, 20, 22, 16],
-      fill: false,
-      borderColor: "#FFA500",
-      pointBorderColor: "#ffffff",
-      tension: 0.4,
-    },
-  ],
-};
+          return date.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23",
+          });
+        }),
 
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      enabled: false,
-    },
-  },
-  layout: {
-    padding: {
-      top: 25,
-      bottom: 35,
-      left: 20,
-      right: 15,
-    },
-  },
-  scales: {
-    x: {
-      display: false,
-    },
-    y: {
-      display: false,
-      min: 10,
-      max: 30,
-    },
-  },
-  elements: {
-    point: {
-      radius: 2,
-      backgroundColor: "#fff",
-      border: "none",
-    },
-  },
-};
+    datasets: [
+      {
+        label: `${humidity ? "Humidity" : "Temperature"}`,
+        data: humidity
+          ? humidity.map((hum) => hum.v)
+          : temp?.map((tem) => tem.v),
 
-const WeatherChart = () => {
+        fill: false,
+        borderColor: "#FFA500",
+        pointBorderColor: "#ffffff",
+        tension: 0.4,
+      },
+    ],
+  };
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
+    layout: {
+      padding: {
+        top: 25,
+        bottom: 35,
+        left: 20,
+        right: 15,
+      },
+    },
+    scales: {
+      x: {
+        display: false,
+        min: 2,
+      },
+      y: {
+        display: false,
+        min: humidity
+          ? Math.min(...humidityNumbers) - 16
+          : Math.min(...temperaturNumbers) - 16,
+        max: humidity
+          ? Math.max(...humidityNumbers) + 16
+          : Math.max(...temperaturNumbers) + 16,
+      },
+    },
+    elements: {
+      point: {
+        radius: 2,
+        backgroundColor: "#fff",
+        border: "none",
+      },
+    },
+  };
   return (
     <Box style={{ height: "100%", width: "100%" }}>
       <Flex>
-        <img src={Clock} alt="" /> <Text>Temperatures</Text>
+        <Text>{humidity ? "Humidity" : "Temperatures"}</Text>
       </Flex>
       <Box h="180px" bg="lightgray">
         <Line
@@ -116,9 +123,11 @@ const WeatherChart = () => {
                 const dataset = chart.data.datasets[0];
                 const meta = chart.getDatasetMeta(0);
 
-                const labels = chart.data.labels as Label[];
+                const labels = chart.data.labels as string[];
 
                 labels.forEach((label, index) => {
+                  const value = dataset.data[index];
+                  if (value == null) return;
                   const point = meta.data[index].getProps(["x", "y"], true);
 
                   ctx.font = "bold 12px Inter";
@@ -130,28 +139,12 @@ const WeatherChart = () => {
                   const y = point.y - 15;
                   ctx.fillText(`${dataset.data[index]}°`, x, y);
 
-                  // Draw wind label
                   ctx.font = "normal 9px Inter";
                   ctx.fillStyle = "black";
                   ctx.textAlign = "center";
                   ctx.textBaseline = "middle";
                   const windLabelY = point.y + 52;
-                  ctx.fillText(label.wind, x, windLabelY);
-
-                  // Draw time label
-                  const timeLabelY = point.y + 65;
-                  ctx.fillText(label.time, x, timeLabelY);
-
-                  // Draw weather icon
-                  const img = new Image();
-                  img.src = weatherIcons[index];
-                  const iconSize = 20;
-                  const iconX = x - iconSize / 2;
-                  const iconY = point.y + 25;
-
-                  img.onload = () => {
-                    ctx.drawImage(img, iconX, iconY, iconSize, iconSize);
-                  };
+                  ctx.fillText(label, x, windLabelY);
                 });
               },
             },

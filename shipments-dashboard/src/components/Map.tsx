@@ -28,7 +28,6 @@ export const Map = ({ long, lat }: MapProps) => {
             <Text fontSize="lg" fontWeight="bold" mb={2}>
               Shipment Details
             </Text>
-            {/* <Divider mb={3} /> */}
             <Text>
               <strong>ID:</strong> {shipment.shipmentId}
             </Text>

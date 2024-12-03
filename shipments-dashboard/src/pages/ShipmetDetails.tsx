@@ -38,7 +38,9 @@ export const ShipmetDetails = () => {
   }, []);
   return (
     lattitude &&
-    longtitude && (
+    longtitude &&
+    humidity &&
+    temperature && (
       <Flex
         paddingInline="32px"
         direction="column"
@@ -88,10 +90,10 @@ export const ShipmetDetails = () => {
             <Map lat={lattitude} long={longtitude} />
           </Flex>
           <Flex w="100%" h="275px">
-            <WeatherChart />
+            <WeatherChart humidity={humidity} />
           </Flex>
           <Flex w="100%" h="275px">
-            <WeatherChart />
+            <WeatherChart temp={temperature} />
           </Flex>
         </Flex>
       </Flex>
