@@ -44,6 +44,9 @@ Before running this project locally, ensure the following software is installed:
    npm install
    ```
 3. Start the frontend application
+
    ```bash
    npm run dev
    ```
+
+   After completing these steps, you should be able to visit the dashboard at http://localhost:5173 (or a different port specified in the terminal).
