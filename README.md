@@ -30,7 +30,7 @@ Before running this project locally, ensure the following software is installed:
    ```
 3. Start the backend server
    ```bash
-   npm start
+   npx json-server db.json
    ```
 
 ### Frontend Setup
