@@ -1,5 +1,5 @@
 import { Line } from "react-chartjs-2";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Clock from "../assets/charticons/Clock.svg";
 import Icon1 from "../assets/charticons/117.png";
 import Icon2 from "../assets/charticons/113.png";
@@ -17,6 +17,19 @@ import {
 } from "chart.js";
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
+
+interface Props {
+  humidity: Humidity[];
+  temp: Temperature[];
+}
+interface Humidity {
+  t: number;
+  v: number;
+}
+interface Temperature {
+  t: number;
+  v: number;
+}
 
 const weatherIcons = [Icon1, Icon2, Icon3, Icon4, Icon5, Icon6, Icon7];
 
@@ -89,10 +102,9 @@ const WeatherChart = () => {
   return (
     <Box style={{ height: "100%", width: "100%" }}>
       <Flex>
-        <img src={Clock} alt="" />{" "}
-        <Text>Temperatures</Text>
+        <img src={Clock} alt="" /> <Text>Temperatures</Text>
       </Flex>
-      <Box h='180px' bg="lightgray">
+      <Box h="180px" bg="lightgray">
         <Line
           data={data}
           options={options}
@@ -146,7 +158,6 @@ const WeatherChart = () => {
           ]}
           height={100}
         />
-        
       </Box>
     </Box>
   );

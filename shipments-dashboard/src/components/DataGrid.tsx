@@ -1,4 +1,4 @@
-import { Button, Flex,  Table } from "@chakra-ui/react";
+import { Button, Flex, Table } from "@chakra-ui/react";
 import { Card } from "@chakra-ui/card";
 import {
   ColumnDef,
@@ -16,14 +16,14 @@ import { useNavigate } from "react-router-dom";
 export type DataGridProps<Data extends object> = {
   data: any[] | undefined;
   columns: ColumnDef<Data, any>[];
-  viewMode:string;
+  viewMode: string;
 };
 
 export function DataGrid<Data extends object>({
   data = [],
-  
+
   columns,
-  viewMode
+  viewMode,
 }: DataGridProps<Data>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const navigate = useNavigate();
@@ -33,9 +33,7 @@ export function DataGrid<Data extends object>({
     onSortingChange: setSorting,
     state: { sorting },
     getCoreRowModel: getCoreRowModel(),
-    
   });
-
   return (
     <>
       <Flex
@@ -102,16 +100,34 @@ export function DataGrid<Data extends object>({
                       );
                     })}
                     <Table.Cell>
-                      <Tooltip content="Shipments List">
-                        <Button
-                          bg="transparent"
-                          color="black"
-                          _hover={{ bg: "#0066cc1f" }}
-                          onClick={() => navigate(`/${viewMode}/${viewMode=="shipments"?row.original.companyId:row.original.shipmentId}`)}
+                      {((viewMode === "details" &&
+                        row?.original?.status === "IN PROGRESS") ||
+                        viewMode === "shipments") && (
+                        <Tooltip
+                          content={
+                            viewMode === "shipments"
+                              ? "Shipments List"
+                              : "Shipments Details"
+                          }
                         >
-                          <MdOutlineOpenInNew />
-                        </Button>
-                      </Tooltip>
+                          <Button
+                            bg="transparent"
+                            color="black"
+                            _hover={{ bg: "#0066cc1f" }}
+                            onClick={() =>
+                              navigate(
+                                `/${viewMode}/${
+                                  viewMode == "shipments"
+                                    ? row.original.companyId
+                                    : row.original.shipmentId
+                                }`
+                              )
+                            }
+                          >
+                            <MdOutlineOpenInNew />
+                          </Button>
+                        </Tooltip>
+                      )}
                     </Table.Cell>
                   </Table.Row>
                 </React.Fragment>

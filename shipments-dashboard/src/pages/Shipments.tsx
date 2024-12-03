@@ -1,15 +1,16 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import {  fetchShipments } from "@/api";
+import { fetchShipments } from "@/api";
 import { useEffect, useState } from "react";
 import { ShipmentsList } from "@/components/ShipmentsList";
+import { useParams } from "react-router-dom";
 
-export const Shipments =  () => {
-const [shipments, setShipments] =useState({}); 
-const companyId = window.location.pathname.split("/").slice(-1);
+export const Shipments = () => {
+  const [shipments, setShipments] = useState({});
+  const { id } = useParams();
 
-useEffect(()=>{
-  fetchShipments(companyId[0]).then(res=>setShipments(res));
-},[])
+  useEffect(() => {
+    fetchShipments(id as string).then((res) => setShipments(res));
+  }, []);
 
   return (
     <Flex
@@ -34,7 +35,7 @@ useEffect(()=>{
             Shipments
           </Text>
           <Text fontSize="12px" fontWeight="500">
-          Shipments List
+            Shipments List
           </Text>
         </Flex>
       </Box>
@@ -45,7 +46,7 @@ useEffect(()=>{
         bg="#fff"
         height="73vh"
       >
-        <ShipmentsList data={shipments}/>
+        <ShipmentsList data={shipments} />
       </Flex>
     </Flex>
   );

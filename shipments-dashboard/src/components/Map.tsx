@@ -1,25 +1,47 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css"
+import { Text } from "@chakra-ui/react";
+import "leaflet/dist/leaflet.css";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchShipmentsbyId } from "@/api";
+interface MapProps {
+  long: number;
+  lat: number;
+}
 
-export const Map = () => {
+export const Map = ({ long, lat }: MapProps) => {
+  const { id } = useParams();
+  const [shipment, setShipment] = useState<any>({});
+  useEffect(() => {
+    fetchShipmentsbyId(id as string).then((res) => setShipment(res[0]));
+  }, []);
+  console.log(shipment);
   return (
-   
-      <MapContainer  center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
+    long &&
+    lat && (
+      <MapContainer center={[long, lat]} zoom={2}>
         <TileLayer
           // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         />
-        <Marker position={[40.5116359952106, -3.47946224950315]}>
+        <Marker position={[long, lat]}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <Marker position={[41.552745, 2.182736]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            <Text fontSize="lg" fontWeight="bold" mb={2}>
+              Shipment Details
+            </Text>
+            {/* <Divider mb={3} /> */}
+            <Text>
+              <strong>ID:</strong> {shipment.shipmentId}
+            </Text>
+            <Text>
+              <strong>Destination:</strong> {shipment.destinationName}
+            </Text>
+            <Text mt={2}>
+              <strong>Location:</strong> {lat.toFixed(4)}, {long.toFixed(4)}
+            </Text>
           </Popup>
         </Marker>
       </MapContainer>
-  
+    )
   );
 };

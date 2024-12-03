@@ -3,13 +3,12 @@ import { CompaniesList } from "../components/CompaniesList";
 import { fetchCompanies } from "@/api";
 import { useEffect, useState } from "react";
 
-export const Companies =  () => {
-const [companies, setCompanies] =useState({}); 
+export const Companies = () => {
+  const [companies, setCompanies] = useState({});
 
-
-useEffect(()=>{
-  fetchCompanies().then(res=>setCompanies(res));
-},[])
+  useEffect(() => {
+    fetchCompanies().then((res) => setCompanies(res));
+  }, []);
 
   return (
     <Flex
@@ -45,7 +44,7 @@ useEffect(()=>{
         bg="#fff"
         height="73vh"
       >
-        <CompaniesList data={companies}/>
+        <CompaniesList data={companies} />
       </Flex>
     </Flex>
   );

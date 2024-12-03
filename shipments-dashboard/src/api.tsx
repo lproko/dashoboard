@@ -15,7 +15,16 @@ export const fetchCompanies = async () => {
   return data;
 };
 
-export const fetchShipments= async (id:string)=>{
-    const {data}= await api.get(`shipments?partnerCompanyId=${id}`)
-    return data;
- }
+export const fetchShipments = async (id: string) => {
+  const { data } = await api.get(`shipments?partnerCompanyId=${id}`);
+  return data;
+};
+export const fetchShipmentsbyId = async (id: string) => {
+  const { data } = await api.get(`shipments?shipmentId=${id}`);
+  return data;
+};
+
+export const fetchShipmentDetails = async (id: string) => {
+  const { data } = await api.get(`shipmentDetails?shipmentId=${id}`);
+  return data;
+};
