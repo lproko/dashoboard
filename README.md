@@ -1,6 +1,6 @@
-# Dashoboard
+# Simple Dashboard Project
 
-Dashoboard is a dashboard application that helps manage and visualize shipments effectively.
+This repository contains a dashboard application designed to visualize shipment and operational data. It is developed using React for the frontend and leverages a lightweight JSON-server as a backend for demonstration purposes.
 
 ## Project Structure
 
