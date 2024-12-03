@@ -36,7 +36,6 @@ export const ShipmetDetails = () => {
       setTemperature(res[0].temperature);
     });
   }, []);
-  console.log(temperature);
   return (
     lattitude &&
     longtitude && (

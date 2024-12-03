@@ -15,7 +15,6 @@ export const Map = ({ long, lat }: MapProps) => {
   useEffect(() => {
     fetchShipmentsbyId(id as string).then((res) => setShipment(res[0]));
   }, []);
-  console.log(shipment);
   return (
     long &&
     lat && (
