@@ -137,7 +137,13 @@ const WeatherChart = ({ humidity, temp }: Props) => {
 
                   const x = point.x;
                   const y = point.y - 15;
-                  ctx.fillText(`${dataset.data[index]}°`, x, y);
+                  ctx.fillText(
+                    humidity
+                      ? `${dataset.data[index]}%`
+                      : `${dataset.data[index]}°`,
+                    x,
+                    y
+                  );
 
                   ctx.font = "normal 9px Inter";
                   ctx.fillStyle = "black";
