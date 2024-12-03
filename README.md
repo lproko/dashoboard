@@ -37,7 +37,7 @@ Before running this project locally, ensure the following software is installed:
 
 1. Navigate to the shipments-dashboard directory
    ```bash
-   shipments-dashboard
+   cd shipments-dashboard
    ```
 2. Install the required frontend dependencies
    ```bash
