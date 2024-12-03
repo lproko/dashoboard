@@ -50,3 +50,12 @@ Before running this project locally, ensure the following software is installed:
    ```
 
    After completing these steps, you should be able to visit the dashboard at http://localhost:5173 (or a different port specified in the terminal).
+
+### Development Workflow
+
+- **Frontend Development**: Work on the components in the `src` directory. Styling is managed using Chakra UI,
+  and the data visualizations use libraries such as `chart.js` and `react-leaflet`
+
+- **API Integration**: All API calls from the frontend interact with the JSON-server.
+
+- **Testing**: Add unit and integration tests using Jest and React Testing Library.
