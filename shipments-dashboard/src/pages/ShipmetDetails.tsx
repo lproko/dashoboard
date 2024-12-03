@@ -5,12 +5,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchShipmentDetails } from "@/api.tsx";
-// interface Details {
-//   lat: number;
-//   lng: number;
-//   humidity: Humidity[];
-//   temperature: Temperature[];
-// }
+
 interface Humidity {
   t: number;
   v: number;
@@ -23,7 +18,6 @@ interface Temperature {
 export const ShipmetDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  // const [details, setDetails] = useState<Details>();
   const [longtitude, setLongtitude] = useState<number>();
   const [lattitude, setLatitude] = useState<number>();
   const [humidity, setHumidity] = useState<Humidity[]>();
