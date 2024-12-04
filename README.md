@@ -18,6 +18,9 @@ Before running this project locally, ensure the following software is installed:
 
 ## Installation & Setup
 
+- Clone this repo on your machine
+  git clone https://github.com/lproko/dashoboard.git
+
 ### Backend Setup
 
 1. Navigate to the `backend` directory:
