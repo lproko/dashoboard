@@ -56,6 +56,6 @@ Before running this project locally, ensure the following software is installed:
 - **Frontend Development**: Work on the components in the `src` directory. Styling is managed using Chakra UI,
   and the data visualizations use libraries such as `chart.js` and `react-leaflet`
 
-- **API Integration**: All API calls from the frontend interact with the JSON-server.
+- **API Integration**: All API calls from the frontend interact with the JSON-server.The mock data for the dashboard is stored in db.json within the backend directory. JSON-server serves as a lightweight API backend for development, offering easy mock data simulation.
 
 - **Testing**: Add unit and integration tests using Jest and React Testing Library.
