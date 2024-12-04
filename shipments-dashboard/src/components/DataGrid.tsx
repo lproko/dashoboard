@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip } from "./ui/tooltip";
 import { useNavigate } from "react-router-dom";
 
 export type DataGridProps<Data extends object> = {

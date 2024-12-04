@@ -1,9 +1,9 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { CompaniesList } from "../components/CompaniesList";
-import { fetchCompanies } from "@/api";
+import { fetchCompanies } from "../api";
 import { useEffect, useState } from "react";
 
-export const Companies = () => {
+function Companies() {
   const [companies, setCompanies] = useState({});
 
   useEffect(() => {
@@ -48,4 +48,5 @@ export const Companies = () => {
       </Flex>
     </Flex>
   );
-};
+}
+export default Companies;
